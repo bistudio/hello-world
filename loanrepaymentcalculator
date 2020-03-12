@@ -1,0 +1,41 @@
+# code name: loan repayment calculator
+# author: pyguypy
+# date: 12/03/2020
+# reason :preparation for python developr career
+
+# variables
+
+principal = 10000
+rate = 3.5/100/12
+term = 84
+
+def loan_kpi_calc(principal, rate, term):
+   repayment = round((principal * rate) / (1 - ((1 + rate)**(-1*term))),2)
+   total_repayable = repayment * term
+   total_interest = round(total_repayable - principal,2)
+   future_value = round(principal * (1 + rate)**term,2)
+   print(f'repayment: {repayment}, total repayable: {total_repayable}, total interest: {total_interest}, future value: {future_value}')
+
+loan_kpi_calc(principal, rate, term)
+
+
+def repaymentsch(principal, rate, term):
+  currentTerm = 0
+  first_month_interest = round(principal * rate,2)
+  repayment = round((principal * rate) / (1 - ((1 + rate)**(-1*term))),2)
+  first_month_capital = round(repayment - first_month_interest,2)
+  currentBalance = principal  
+  while currentTerm < term:
+     currentTerm += 1
+     subsequent_month_interest = round(currentBalance * rate,2)
+     subsequent_month_capital = round(repayment - subsequent_month_interest,2)
+     previous_balance = currentBalance
+     if currentTerm == 1:
+       print(f'current term: {currentTerm}, repayment: {repayment}, interest only: {first_month_interest}, capital only: {first_month_capital}, current balance: {principal}')
+     else:
+       currentBalance = round(previous_balance - subsequent_month_capital,2)
+       subsequent_month_interest = round(currentBalance * rate,2)
+       subsequent_month_capital = round(repayment - subsequent_month_interest,2)
+       print(f'current term: {currentTerm}, repayment: {repayment}, interest only: {subsequent_month_interest}, capital only: {subsequent_month_capital}, current balance: {currentBalance}')
+
+repaymentsch(principal, rate, term)
